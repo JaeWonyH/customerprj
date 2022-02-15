@@ -1,11 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer App</title>
-</head>
-<body>
-<h2>Customer App</h2>
+{% extends 'customer/base.html' %}
 
-</body>
-</html>
+{% block content %}
+    {% for cust in customers %}
+        <div class="post">
+            <h1><a href="{% url 'customer_detail' pk=cust.pk %}">{{ cust.name }}</a></h1>
+            <p>{{ cust.email }}</p>
+            <div class="date">
+                <p>생년월일: {{ cust.birthdate }}</p>
+            </div>
+            {% if cust.gender is True %}
+                <p>남자</p>
+            {% else %}
+                <p>여자</p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>고객이 없습니다.</p>
+    {% endfor %}
+{% endblock %}
